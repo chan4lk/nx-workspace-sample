@@ -16,7 +16,18 @@
     },
     "my-account-e2e": {
       "tags": [],
-      "implicitDependencies": ["my-account"]
+      "implicitDependencies": [
+        "my-account"
+      ]
+    },
+    "bt-components": {
+      "tags": []
+    },
+    "bt-components-e2e": {
+      "tags": [],
+      "implicitDependencies": [
+        "bt-components"
+      ]
     }
   }
 }

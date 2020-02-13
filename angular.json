@@ -25,7 +25,9 @@
               "apps/my-account/src/favicon.ico",
               "apps/my-account/src/assets"
             ],
-            "styles": ["apps/my-account/src/styles.scss"],
+            "styles": [
+              "apps/my-account/src/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -83,7 +85,10 @@
               "apps/my-account/tsconfig.app.json",
               "apps/my-account/tsconfig.spec.json"
             ],
-            "exclude": ["**/node_modules/**", "!apps/my-account/**"]
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/my-account/**"
+            ]
           }
         },
         "test": {
@@ -117,8 +122,109 @@
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
-            "tsConfig": ["apps/my-account-e2e/tsconfig.e2e.json"],
-            "exclude": ["**/node_modules/**", "!apps/my-account-e2e/**"]
+            "tsConfig": [
+              "apps/my-account-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/my-account-e2e/**"
+            ]
+          }
+        }
+      }
+    },
+    "bt-components": {
+      "projectType": "library",
+      "root": "libs/bt-components",
+      "sourceRoot": "libs/bt-components/src",
+      "prefix": "my-account-workspace",
+      "architect": {
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "libs/bt-components/tsconfig.lib.json",
+              "libs/bt-components/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!libs/bt-components/**"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "options": {
+            "jestConfig": "libs/bt-components/jest.config.js",
+            "tsConfig": "libs/bt-components/tsconfig.spec.json",
+            "setupFile": "libs/bt-components/src/test-setup.ts"
+          }
+        },
+        "storybook": {
+          "builder": "@nrwl/storybook:storybook",
+          "options": {
+            "uiFramework": "@storybook/angular",
+            "port": 4400,
+            "config": {
+              "configFolder": "libs/bt-components/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        },
+        "build-storybook": {
+          "builder": "@nrwl/storybook:build",
+          "options": {
+            "uiFramework": "@storybook/angular",
+            "outputPath": "dist/storybook/bt-components",
+            "config": {
+              "configFolder": "libs/bt-components/.storybook"
+            }
+          },
+          "configurations": {
+            "ci": {
+              "quiet": true
+            }
+          }
+        }
+      },
+      "schematics": {
+        "@nrwl/angular:component": {
+          "styleext": "scss"
+        }
+      }
+    },
+    "bt-components-e2e": {
+      "root": "apps/bt-components-e2e",
+      "sourceRoot": "apps/bt-components-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/bt-components-e2e/cypress.json",
+            "tsConfig": "apps/bt-components-e2e/tsconfig.e2e.json",
+            "devServerTarget": "bt-components:storybook"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "bt-components:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "apps/bt-components-e2e/tsconfig.e2e.json"
+            ],
+            "exclude": [
+              "**/node_modules/**",
+              "!apps/bt-components-e2e/**"
+            ]
           }
         }
       }
