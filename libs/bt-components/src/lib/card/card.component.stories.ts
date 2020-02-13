@@ -1,5 +1,14 @@
 
 import { CardComponent } from './card.component';
+const note = `
+  ## Usage
+
+  ~~~html 
+  
+  <my-account-workspace-car id="5"></my-account-workspace-card> 
+
+  ~~~
+`;
 
 export default {
   title: 'CardComponent'
@@ -13,3 +22,9 @@ export const primary = () => ({
   props: {
   }
 })
+
+primary.story = {
+  parameters: {
+    notes: { markdown: note },
+  }
+};
